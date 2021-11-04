@@ -1,0 +1,159 @@
+{% comment %} For mega menu working it is necessary to create a sublink for the menu item where you want to display the menu. {% endcomment %}
+            <div class="collapse navbar-collapse justify-content-center" id="siteNavigation">
+                <div class="navbar-nav-wrapper">
+                    <div class="navbar-nav site-navigation">
+                        <ul class="navbar position-static">                       
+                                {% for link in linklists.main-menu.links %}        
+                                {% if link.links != blank %}  
+                            <li class="nav-item dropdown position-static">
+                                <a href="{{link.url}}" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">{{link.title}}</a>                  
+                                <div class="dropdown-menu mega-menu" aria-labelledby="SearchdropdownMenuButton">
+                                    <div class="container-xl d-block px-0">
+                                        <div class="row no-gutters">
+                                            <div class="col-lg-6">
+                                                <div class="site-navigation__block">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 mb-4 mb-lg-0">
+                                                            <ul>
+                                                                <li class="d-lg-none mb-4">
+                                                                    <a href="#" class="flex-v-center">
+                                                                        <svg class="mr-2"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="11.935" height="11.935"
+                                                                            viewBox="0 0 11.935 11.935">
+                                                                            <path id="Path_47" data-name="Path 47"
+                                                                                d="M-1410,212h7.948v7.931"
+                                                                                transform="translate(-1140.6 -835.532) rotate(-135)"
+                                                                                fill="none" stroke="#000"
+                                                                                stroke-width="1" />
+                                                                        </svg>
+                                                                        All</a>
+                                                                </li>
+                                                                {% for link in linklists[section.settings.mega_linklist].links %}
+                                                                <!-- Menu Links -->
+                                                                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                                                {% endfor %}
+                                                              
+                                                            </ul>
+
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            {% assign menu = section.settings.mega_linklist2 %}
+                                                            <ul>
+                                                                <li>
+                                                                    
+                                                                    <p class="font-acumin font-demi text-dark-cream">{{menu.title}}</p>
+                                                                </li>
+                                                                {% for link in menu.links %}
+                                                                <!-- Menu Links -->
+                                                                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="col-lg-6 d-none d-lg-block">
+                                                <div class="row no-gutters h-100">
+                                                    <div class="col-lg-6">
+                                                        <div class="collection-block">
+                                                            <div class="collection-block__thumbnail">
+                                                                <div class="image-ratio image-ratio--square">
+                                                                        {% if section.settings.Collec1 != blank %}
+                                                                        <img src="{{ section.settings.Collec1 | img_url: 'master' }}" alt=""> 
+                                                                        {% endif %}                                                                  
+                                                                </div>
+                                                            </div>
+                                                            {% if section.settings.button1  != blank %} 
+                                                            <div class="collection-block__link">
+                                                                <a href="{{ section.settings.button1 }}" class="link-with-arrow">{{ section.settings.button_text1 }}
+                                                                    <span class="icon-wrap">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="12.642" height="8.182"
+                                                                            viewBox="0 0 12.642 8.182">
+                                                                            <g transform="translate(-2.5 0.707)">
+                                                                                <line x2="11.523"
+                                                                                    transform="translate(2.5 3.384)"
+                                                                                    fill="none" stroke="currentColor"
+                                                                                    stroke-width="1" />
+                                                                                <g transform="translate(11.138)">
+                                                                                    <line x2="3.297" y2="3.384"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-linecap="square"
+                                                                                        stroke-width="1" />
+                                                                                    <line y1="3.384" x2="3.297"
+                                                                                        transform="translate(0 3.384)"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-linecap="square"
+                                                                                        stroke-width="1" />
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="collection-block">
+                                                            <div class="collection-block__thumbnail">
+                                                                <div class="image-ratio image-ratio--square">
+                                                                    {% if section.settings.Collec2 != blank %}
+                                                                        <img src="{{ section.settings.Collec2 | img_url: 'master' }}" alt=""> 
+                                                                        {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            {% if section.settings.button2  != blank %} 
+                                                            <div class="collection-block__link">
+                                                                <a href="{{ section.settings.button2 }}" class="link-with-arrow">{{ section.settings.button_text2 }}
+                                                                    <span class="icon-wrap">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="12.642" height="8.182"
+                                                                            viewBox="0 0 12.642 8.182">
+                                                                            <g transform="translate(-2.5 0.707)">
+                                                                                <line x2="11.523"
+                                                                                    transform="translate(2.5 3.384)"
+                                                                                    fill="none" stroke="currentColor"
+                                                                                    stroke-width="1" />
+                                                                                <g transform="translate(11.138)">
+                                                                                    <line x2="3.297" y2="3.384"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-linecap="square"
+                                                                                        stroke-width="1" />
+                                                                                    <line y1="3.384" x2="3.297"
+                                                                                        transform="translate(0 3.384)"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-linecap="square"
+                                                                                        stroke-width="1" />
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </li>
+                            {% endif %}
+                            {% unless link.links != blank %}  
+                            <li class="nav-item">
+                                <a href="{{link.url}}" class="nav-link">{{link.title}}</a>
+                            </li>
+                            {% endunless %}
+                            {% endfor %}
+                        </ul>
+                    </div>
