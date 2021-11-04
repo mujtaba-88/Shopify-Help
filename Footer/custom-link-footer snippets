@@ -1,0 +1,11 @@
+<div class="col-lg-4">
+    <div class="site-footer__navigation">
+        <ul>
+             <li><a href="{{ block.settings.mail }}"
+                    class="text-dark-cream text-uppercase text-underline">{{ block.settings.mail-text }}</a>
+            </li> 
+            <li><a href="{{ block.settings.facebook }}">{{ block.settings.facebook-text}}</a></li>
+            <li><a href="{{ block.settings.instagram }}">{{ block.settings.instagram-text }}</a></li>
+        </ul>
+    </div>
+</div>
