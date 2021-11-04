@@ -1,0 +1,12 @@
+{% assign menu = block.settings.main_linklist %}
+<div class="col-lg-4">         
+    <div class="site-footer__navigation"> 
+        <ul>      
+            {% for link in menu.links %}
+            <li><a href="{{ link.url }}">{{link.title}}</a></li>
+            {% endfor %}
+        </ul>
+        
+    </div> 
+</div>
+
