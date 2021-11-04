@@ -1,0 +1,121 @@
+<!-- Footer Starts Here -->
+    <footer class="site-footer">
+        <div class="site-footer__top bg-cream">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4">
+                        <div class="site-footer__logo">
+                            <a href="#">
+                                <img src="assets/site-footer--logo.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="site-footer__content flex-v-center">
+                            <div class="site-footer__content--title mr-5">
+                                <p class="copy-md">Join the movement.<br>
+                                    Together we will change how fashion works.</p>
+                            </div>
+                            <form action="">
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="Email">
+                                    <button class="btn btn-theme" type="submit">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="site-footer__bottom">
+            <div class="container">
+                <div class="row">
+                     {% for block in section.blocks %}
+                    {% case block.type %}
+
+                    {% when 'menu_link' %}
+                    
+                      {% include  'menu-links' %} 
+                 
+                       {% when 'custom-url' %}
+                       
+                       {% include 'custom-link-footer' %}
+
+                        {% endcase %}
+                  {% endfor %}     
+                 </div>
+            </div>
+        </div>
+    </footer> 
+    <!-- Footer Ends Here -->
+
+
+
+ 
+ 
+    
+ 
+  {% schema %}
+  {
+  "name" : "Footer",
+  "settings": [],
+
+  "blocks": [
+    {
+     "name": "Menu Link",
+     "type":"menu_link",
+     "settings" : [
+       {    
+       
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Menu",
+        "default": "main-menu" 
+     }
+     ]
+       },
+       {
+     "name": "Social Media",
+     "type": "custom-url",
+     "settings": [
+    {    
+         "type": "text",
+         "id": "mail-text",
+         "label": "Email", 
+         "default": "mail@gmail.com"
+     },
+     {    
+        "type": "url",
+        "id": "mail",
+        "label": "Email Url"
+    },
+    {    
+        "type": "text",
+        "id": "facebook-text",
+        "label": "Button Text", 
+        "default": "Facebook"
+    },
+    {    
+       "type": "url",
+       "id": "facebook",
+       "label": "Facebook URL"
+   },
+   {    
+    "type": "text",
+    "id": "instagram-text",
+    "label": "Instagram", 
+    "default": "Instagram Text"
+},
+{    
+   "type": "url",
+   "id": "instagram",
+   "label": "Instagram URL"
+}
+ 
+ ]
+   }
+ 
+    ]
+  }
+  {% endschema %}
+ 
