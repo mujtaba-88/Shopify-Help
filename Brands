@@ -1,0 +1,37 @@
+<div>
+  {%- for product_vendor in shop.vendors -%}
+  <div>{{ product_vendor}}</div> 
+  <img class = "brand-img" src = "{{section.settings.image  | img_url: 'master' }}">
+  <p class = "description">{{section.settings.paragraph_text}}</p>
+  {%- endfor -%}
+</div>
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Vendor",
+    "settings": [
+{    
+        "type": "richtext",
+        "id": "paragraph_text",
+        "label": "Brand Description",
+        "default": "<p>Brand Description</p>"
+    },
+{
+"type": "image_picker",
+"id": "image",
+"label": "choose a brand image"
+}
+
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
