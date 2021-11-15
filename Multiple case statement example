@@ -1,0 +1,24 @@
+<div class="row align-items-center">
+                <div class="col-lg-5">
+                {% for block in section.blocks %}
+                {% case block.type %}
+                {% when 'image_with_content' %}
+                    {% include 'img_with_content' %}
+                {% endcase %}
+                {% endfor %}
+                </div>
+                <div class="col-lg-7">
+                    <div class="site-footer__links d-flex flex-wrap justify-content-lg-end">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                        {% when 'menu_link' %}
+                        {% include  'menu_links' %}
+                        {% when 'custom-url' %}
+                        {% include 'custom_url' %}
+                        {% endcase %}
+                    {% endfor %} 
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
