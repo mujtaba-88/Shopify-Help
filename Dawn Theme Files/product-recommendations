@@ -1,0 +1,171 @@
+<link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-product-grid.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-product-recommendations.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-card.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-price.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}</noscript>
+
+
+<!-- For working of recommended product section change product into recommendations. Recommendtions come from product_card_product: recommendation,
+
+
+ {% render 'product-card',
+              product_card_product: recommendation,
+              media_size: section.settings.image_ratio,
+              show_secondary_image: section.settings.show_secondary_image,
+              add_image_padding: section.settings.add_image_padding,
+              show_vendor: section.settings.show_vendor,
+              show_image_outline: section.settings.show_image_outline,
+              show_rating: section.settings.show_rating
+            %}-->
+
+<product-recommendations class="product-recommendations related-products padding-top page-width" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4">
+  <div class="container">
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+    <div class="title-block text-center text-md-left text-secondary mb-2 pb-1">
+      <h2 class="h3">{{ section.settings.heading | escape }}</h2>
+    </div>
+    <div class="row">
+      {% for recommendation in recommendations.products %}
+      <div class="col-lg-3 col-md-6">
+        <div class="product-block py-4">
+          <a href="{{ recommendation.url }}" class="d-block">
+              <div class="product-block__thumbnail">
+                  <div class="image-ratio image-ratio--square">
+                      <img src="{{ recommendation.featured_image | img_url: '300x300' }}" alt="">
+                  </div>
+                  {% if recommendation.compare_at_price and recommendation.compare_at_price != recommendation.price %}
+                  <figcaption class="badge position-bottom bg-warning text-gray">
+                      <p class="font-museo">Sale</p>
+                  </figcaption>
+                  {% endif %}
+              </div>
+              <div class="product-block__meta text-left text-black">
+                  <p class="font-book">{{ recommendation.title }}</p>
+                  <div class="price font-book">
+                    {% if recommendation.compare_at_price and recommendation.compare_at_price != recommendation.price %}
+                      <span class="old-price text-secondary">{{ recommendation.compare_at_price | money_without_trailing_zeros }}</span>
+                      {% endif %}
+                      <span class="new-price">{{ recommendation.price | money}}</span>
+                  </div>
+              </div>
+          </a>
+      </div>
+       
+      </div>
+      {% endfor %}
+    </div>
+      
+    {% endif %}
+  </div>
+</product-recommendations>
+
+{% javascript %}
+  class ProductRecommendations extends HTMLElement {
+    constructor() {
+      super();
+
+      const handleIntersection = (entries, observer) => {
+        if (!entries[0].isIntersecting) return;
+        observer.unobserve(this);
+
+        fetch(this.dataset.url)
+          .then(response => response.text())
+          .then(text => {
+            const html = document.createElement('div');
+            html.innerHTML = text;
+            const recommendations = html.querySelector('product-recommendations');
+            console.log(recommendations);
+            if (recommendations && recommendations.innerHTML.trim().length) {
+              this.innerHTML = recommendations.innerHTML;
+            }
+          })
+          .catch(e => {
+            console.error(e);
+          });
+      }
+
+      new IntersectionObserver(handleIntersection.bind(this), {rootMargin: '0px 0px 200px 0px'}).observe(this);
+    }
+  }
+
+  customElements.define('product-recommendations', ProductRecommendations);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:sections.product-recommendations.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.product-recommendations.settings.paragraph__1.content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "You may also like",
+      "label": "t:sections.product-recommendations.settings.heading.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.product-recommendations.settings.header__2.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.product-recommendations.settings.image_ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_image_padding",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.add_image_padding.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_outline",
+      "default": true,
+      "label": "t:sections.product-recommendations.settings.show_image_outline.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_rating.label",
+      "info": "t:sections.product-recommendations.settings.show_rating.info"
+    }
+  ]
+}
+{% endschema %}
