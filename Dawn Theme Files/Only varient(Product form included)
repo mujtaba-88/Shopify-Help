@@ -1,0 +1,52 @@
+    {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                                {%- unless product.has_only_default_variant -%}
+                                
+                        
+                                <variant-radios class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
+                                  {%- for option in product.options_with_values -%}
+                                      <fieldset class="js">
+                                        
+                  
+                                        
+                  
+                                        <div class=" product-size choose-option my-4 ">
+                                          
+                                                        <div class="title-block text-secondary text-capitalize">
+                                                            <h6>{{ option.name }}</h6>
+                                                        </div>
+                                                        <div class="product-size__choice d-flex">
+                                                          {%- for value in option.values -%}
+                                                            <div class="product-size__choice__control choose-option__control">
+                                                                    <input type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                                                                      name="{{ option.name }}"
+                                                                      value="{{ value | escape }}"
+                                                                      form="product-form-{{ section.id }}"
+                                                                        {% if option.selected_value == value %}checked{% endif %}
+                                                                      >
+                                                                <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}">
+                                                                  <span> {{ value }} </span> 
+                                                                 </label>
+                                                            </div>
+                                                            {% endfor %} 
+                                                        </div>
+                                                        
+                                                </div>
+                                      </fieldset>
+                                  {%- endfor -%}
+                                  <script type="application/json">
+                                    {{ product.variants | json }}
+                                  </script>
+                                 </variant-radios> 
+                                
+                              {%- endunless -%} 
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              {%- endform -%}
