@@ -1,0 +1,85 @@
+{%- unless product.has_only_default_variant -%}
+              {%- if block.settings.picker_type == 'button' -%}
+          <h1>Hello</h1>
+              {%- else -%}
+              <variant-radios class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
+                {%- for option in product.options_with_values -%}
+                    <fieldset class="js">
+                      
+
+                      
+
+                      {% assign handle = option.name %}
+                  {% case handle %}
+                  {% when 'Color' %}  
+                <div class="product-colors border-bottom">
+                  <div class="title-block font-acumin text-uppercase">
+                    <h6>{{option.name}} <label class="m-0"> {% if option.selected_value == value %}{{value}}{% endif %}</h6>
+                </div>
+                      <div class="product-colors__choice d-flex">
+                                {%- for value in option.values -%}
+                                <div class ="product-colors__choice__control">
+                              <input type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}" id="productColorChoice__1" name="productColorChoice" 
+                              name="{{ option.name }}"
+                              value="{{ value | escape }}"
+                              form="product-form-{{ section.id }}"
+                              {% if option.selected_value == value %}checked{% endif %}
+                        >
+                         <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}" for="productColorChoice__1" style="color: {{ value }};"> </label>
+                         </div>
+                        {%- endfor -%}
+                      </div>
+              </div>
+               {% when 'Size' %}
+              <div class="product-size">
+                <div class="title-block--outer d-flex align-content-center justify-content-between">
+                  <div class="title-block font-acumin text-uppercase">
+                      <h6>size
+                         <!-- <label class="m-0"> 30</label> -->
+                        </h6>
+                  </div>
+                  <div class="link-wrapper">
+                      <a href="#" class="size-chart font-acumin">
+                          size chart
+                      </a>
+                  </div>
+              </div>
+              <div class="product-size__choice d-flex">
+              {%- for value in option.values -%}
+              <div class="product-size__choice__control">
+              <input type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                    name="{{ option.name }}"
+                    value="{{ value | escape }}"
+                    form="product-form-{{ section.id }}"
+                    {% if option.selected_value == value %}checked{% endif %}
+              >
+              <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}">
+               <span>{{ value }}</span> 
+              </label>
+            </div>
+              {%- endfor -%} 
+            </div>
+              </div>    
+               {% else %} 
+              {%- for value in option.values -%}
+               <input type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+               name="{{ option.name }}"
+              value="{{ value | escape }}"
+               form="product-form-{{ section.id }}"
+                {% if option.selected_value == value %}checked{% endif %}
+               >
+               <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}">
+               {{ value }}
+              </label>
+             {%- endfor -%}
+          {% endcase %}
+ 
+                    </fieldset>
+                {%- endfor -%}
+                <script type="application/json">
+                  {{ product.variants | json }}
+                </script>
+              </variant-radios>
+              {%- endif -%}
+            {%- endunless -%} 
+<!-- 
