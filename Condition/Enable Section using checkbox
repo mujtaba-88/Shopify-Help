@@ -1,0 +1,11 @@
+{%- if section.settings.featured-showcase -%}
+
+  {%- endif -%}
+  
+  {
+          "id": "featured-showcase",
+          "type": "checkbox",
+          "label": "Showcase",
+          "default": false
+
+      }
