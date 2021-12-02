@@ -1,0 +1,12 @@
+  {% schema %}
+  {
+    "name": "Featured Showcase",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "This section contains images that will be populated using metafields application"
+      }
+    ]
+  }
+{% endschema %}
+
