@@ -1,0 +1,77 @@
+  {% assign current_collection = collection.handle %}
+  {% assign show_default_info = false %}
+{% for block in section.blocks %}
+  {% liquid 
+    assign bs = block.settings
+    assign handle = bs.collection_handle
+    assign background = bs.image
+    assign heading = bs.heading
+    assign subheading = bs.subheading
+    assign current_handle = collection.handle
+    %}
+    {% if current_handle == handle %}
+    {% assign show_default_info = false %}
+    <section class="hero hero--collections collection-banner-{{ collection.handle }} "  style="background-image: url( {% if block.settings.image != blank %} {{ block.settings.image | img_url: 'master' }} {% endif %});">
+      <div class="container">
+          <div class="hero-caption">
+            {% if block.settings.heading != blank %}
+              <h2 class="h1 font-museo text-primary">{{ block.settings.heading }}</h2>
+            {% endif %}
+            {% if block.settings.subheading != blank %}
+              <p class="copy-lg text-gray">{{ block.settings.subheading }}</p>
+            {% endif %}
+          </div>
+      </div>
+    </section>
+      {% break %}
+      {% else %}
+      {% assign show_default_info = true %}
+    {% endif %}
+{% endfor %}
+{% if show_default_info %}
+  
+<section class="hero hero--collections collection-banner-{{ collection.handle }}" id="shopify-section--{{ section.id }}" style="background-image: url( {% if collection.featured_image != blank %}  {{collection.featured_image | img_url: 'master'}} {% endif %});">
+  <div class="container">
+      <div class="hero-caption">
+          <h2 class="h1 font-museo-300 text-primary">{{collection.title}}</h2>
+          <p class="copy-lg text-gray">{{ collection.description }}</p>
+      </div>
+  </div>
+</section>
+{% endif %}
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "spaced-section spaced-section--full-width",
+  "settings": [],
+  "blocks": [
+  {
+  "type": "collection_banner",
+  "name": "Collection Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "collection_handle",
+      "label": "Collection Handle"
+    },
+    {    
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+    },
+    {    
+    "type": "image_picker",
+    "id": "image",
+    "label": "Image"
+    },
+    {
+      "type": "richtext",
+        "id": "subheading",
+        "label": "Subheading"
+    }
+  ]
+}
+]
+  
+}
+{% endschema %}
