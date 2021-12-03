@@ -1,0 +1,67 @@
+<!-- More Product Starts Here -->
+ <section class="collections--home collections--more">
+  <div class="container">
+      <div class="title-block text-center text-secondary">
+          <h3 class="h3">{{ collection.metafields.global.section-title.value }}</h3>
+      </div>
+      <div class="row">
+        {% assign collection_handle_one =  collection.metafields.collection.collection-handle-one.value  %}
+        {% assign collection_left = collections[collection_handle_one] %}
+        {% assign left_collection_meta_image = collection.metafields.global.featured_collection_first_img.value  %}
+        {% assign left_collection__featured_image = collection_left.image %}
+        {% assign left_collection_title = collection_left.title %}
+        {% assign left_collection_url = collection_left.url %}
+        <div class="col-md-6">
+              <div class="product-block py-4">
+                  <a href="{{ left_collection_url }}" class="d-block">
+                      <div class="product-block__thumbnail">
+                        {% if left_collection_meta_image != blank %}
+                        <div class="image-ratio image-ratio--square">
+                          {{ left_collection_meta_image | img_url: 'master' | img_tag }}
+                        </div>
+                        {% else %}
+                        <div class="image-ratio image-ratio--square">
+                          <img src="{{ left_collection__featured_image | img_url: 'master'  }}" alt="">
+                        </div>
+                        {% endif %}
+
+                          <div class="overlay absolute-full-box"></div>
+                          <figcaption class="image-title absolute-full-box flex-center text-white">
+                              <p class="copy-lg">{{ left_collection_title }}</p>
+                          </figcaption>
+                      </div>
+                  </a>
+              </div>
+          </div>
+          {% assign collection_handle_two =  collection.metafields.collection.collection-handle-two.value  %}
+          {% assign collection_right = collections[collection_handle_two] %}
+          {% assign right_collection_meta_image = collection.metafields.global.featured_collection_second_img.value %} 
+          {% assign right_collection__featured_image = collection_right.image %}
+          {% assign right_collection_title = collection_right.title %}
+          {% assign right_collection_url = collection_right.url %}
+      
+          <div class="col-md-6">
+              <div class="product-block py-4">
+                  <a href="{{ right_collection_url }}" class="d-block">
+                      <div class="product-block__thumbnail">
+                        {% if right_collection_meta_image != blank %}
+                        <div class="image-ratio image-ratio--square">
+                          {{ right_collection_meta_image | img_url: 'master' | img_tag }}
+                        </div>
+                        {% else %}
+                        <div class="image-ratio image-ratio--square">
+                          <img src="{{ right_collection__featured_image | img_url: 'master'  }}" alt="">
+                        </div>
+                        {% endif %}
+                          <div class="overlay absolute-full-box"></div>
+                          <figcaption class="image-title absolute-full-box flex-center text-white">
+                              <p class="copy-lg">{{ right_collection_title }}</p>
+                          </figcaption>
+                      </div>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- More Product Ends Here -->
