@@ -1,0 +1,102 @@
+{% assign title = template.suffix | downcase  %}  
+
+<!--Our Services Start Here-->
+    <section class="our-services our-services__bundle">
+        <div class="container p-xl-0">
+          {% if section.settings.section-title != blank %}
+            <div class="text-center">
+              <h3 class="{% unless title == "landing"  %}font-regular {% endunless %} {% if title == "landing"  %} font-demis text-primary {% endif %}">{{ section.settings.section-title }} </h3>
+            </div>
+          {% endif %}
+            <div class="row row-gutters-10">
+              {% for block in section.blocks %}
+             {% assign product_bundle = all_products[block.settings.product_handle] %} 
+                <div class="col-lg-4">
+                    <div class="service-block">
+                        <a href="{{ product_bundle.url }}" class="d-block">
+                            <div class="image-wrapper">
+                                <div class="image-ratio image-ratio--square">
+                                    <img src="{{ product_bundle.featured_image | img_url: 'master' }}" alt="">
+                                </div>
+                              <div class="btn-wrapper">
+                            {% if block.settings.product_tag != blank %}
+                                    <button class="btn text-white copy-lg text-uppercase font-bold" style="background-color:{{ block.settings.tag_color }}">{{ block.settings.product_tag }}</button>
+                          {% endif %}      
+                          </div>
+                            </div>
+                          
+                            <div class="block-title">
+                                <h5 class="font-regular mb-2">{{ product_bundle.title }}</h5>
+                                <h2 class="font-regular">{{ product_bundle.price | money }}</h2>
+                              {%- if section.settings.cart_button -%}
+                               <div class="btn-wrap">
+                                 {%- assign product_form_id = product_bundle.id -%}
+                                 {%- form 'product', product_bundle, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%} 
+                                 <input type="hidden" name="id" value="{{ product_bundle.selected_or_first_available_variant.id }}">
+                                        <button type="submit" class="btn btn-block btn-primary">Add to cart</button>
+                                </div>
+                              {%- endform -%}
+                               {%- endif -%}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+<!--Our Services End Here-->
+{% style %}
+
+{% endstyle %}
+{% schema %}
+  {
+    "name": "Product Bundle",
+    "max_blocks": 3,
+    "settings": [
+			{
+          "type": "text",
+		  "id": "section-title",
+          "label": "Section Title",
+          "default" : " Buy More and Save"
+            },
+			 {
+          "id": "cart_button",
+          "type": "checkbox",
+          "label": "Add to cart button",
+          "default": false
+
+      		}
+  ],
+"blocks": [
+      {
+        "type": "text",
+        "name": "Bundle Link",
+        "settings": [
+        {
+          "type": "text",
+          "id": "product_handle",
+          "label": "Product Handle"
+          },
+			{
+          "type": "text",
+          "id": "product_tag",
+          "label": "Tag"
+          },
+		{
+          "type": "color",
+          "id": "tag_color",
+          "label": "Tag Color",
+		  "default": "#0053A7"
+          }
+        ]
+      }
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
