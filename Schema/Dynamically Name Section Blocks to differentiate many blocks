@@ -1,0 +1,37 @@
+{% schema %}
+  {
+    "blocks": [
+      {
+        "type": "block-type",
+        "name": "Block Name",
+        "settings": [
+          {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Image"
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Name"
+          },
+          {
+          "id": "some_link",
+          "type": "text",
+          "label": "URL some page"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+
+
+The key part is to have an input's `id` assigned to be `title` in the settings array. 
+As per instructions here https://shopify.dev/tutorials/develop-theme-use-sections#section-title
+
+{
+  "id": "title",
+  ...
+}
