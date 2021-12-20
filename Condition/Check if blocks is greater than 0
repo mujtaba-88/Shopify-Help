@@ -1,0 +1,8 @@
+{% if section.blocks.size > 0 %}
+         {% for block in section.blocks %}                    
+               <div class="card-body">
+               {{ block.settings.paragraph }}
+               </div>
+                                  
+         {% endfor %}
+  {% endif %}
