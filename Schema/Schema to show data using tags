@@ -1,0 +1,23 @@
+ {% if section.settings.richtext_content != blank %}
+                      <h3 class="font-normal">{{ section.settings.richtext_content }}</h3>
+                      {% endif %}
+                      {% if section.settings.richtext_label != blank %}
+                      {% assign tag_labels = section.settings.richtext_label | split: ',' %}
+                      <ul class="d-flex flex-wrap text-white">
+                          {% for _tag in tag_labels %}
+                          {% if _tag != blank %}
+                          <li>{{ _tag | strip_html }}</li>
+                          {% endif %}
+                          {% endfor %}
+                        </ul>
+                      {% endif %}  
+                      
+                      
+ {
+      "type": "richtext",
+      "id": "richtext_label",
+      "default": "<p>Tag 1, Tag 2, Tag 3</p>",
+      "info": "Please add comma ',' seerated values for tag labels",
+      "label": "Tags"
+    }
+                      
