@@ -1,0 +1,123 @@
+https://www.shopify.com/partners/blog/theme-blocks
+
+
+If we want to add block support for the product title, product price, product vendor, and product description, we would need to first add the "blocks" property within the section schema and create JSON objects for each of the elements. 
+
+{% schema %}
+{
+  "name": "Main product section",
+  "blocks": [
+     {
+        "type": "title",
+        "name": "Title",
+        "limit": 1
+      },
+      {
+        "type": "price",
+        "name": "Price",
+        "limit": 1
+      },
+      {
+        "type": "vendor",
+        "name": "Vendor",
+        "limit": 1
+      },
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1
+        }
+   ]
+}
+
+{% endschema %}
+view rawmain-product-section-with-blocks.liquid hosted with ❤ by GitHub
+Next we would wrap all the HTML and Liquid elements in the same {% for %} loop and case/when statements that we used earlier that will iterate over blocks in the section to render each of our blocks:
+
+{% for block in section.blocks %}  
+    {% case block.type %}
+  
+       {% when 'title' %} 	
+        <h2>{{ product.title | escape }}</h2>
+  
+      {% when 'price' %}
+        {{ product.price }}
+  
+      {% when 'vendor' %}
+        {%- if product.vendor -%}
+          <p>{{ product.vendor }}</p>
+        {%- endif -%}
+
+      {% when 'description' %}
+        <p>{{ product.description }}</p>
+    {% endcase %}
+  {% endfor %}
+view rawmain-product-blocks.liquid hosted with ❤ by GitHub
+Now all of our elements are blocks, but if we navigate to the product page, we won't see them on the page, although they will be selectable blocks on the theme editor. The final step in this process is to edit the product.json template file to define which blocks appear by default, and to assign a default order to each block. 
+
+Within the JSON template we would add the following to determine which blocks should be added by default, and the block order:
+
+"blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "vendor": {
+          "type": "vendor"
+        },
+        "description": {
+          "type": "description"
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "description",
+        "vendor"
+      ],
+view rawproduct-blocks.json hosted with ❤ by GitHub
+Once this is added, the entire product.json file should appear like this:
+
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "settings": {
+          }
+        },
+          "description": {
+          "type": "description",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "description",
+        "vendor"
+      ],
+
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
