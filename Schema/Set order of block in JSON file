@@ -1,0 +1,88 @@
+The trick is that just redefine your block in a JSON file and use block order so they automatically rendors
+"blocks": {
+        "title": {
+          "type": "title"
+        }
+        }
+      },
+      "block_order": [
+        "title"
+      ],
+      
+      
+ Working example
+
+SCHEMA 
+
+{% schema %}
+{
+    "name": "Hero",
+    "max_blocks": 2,
+    "settings": [],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+          {
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "image-with-caption",
+      "name": "Image with caption",
+      "settings": [
+          {
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image"
+        },
+        {
+            "id": "heading",
+            "type": "text",
+            "label": "Image Caption"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+    "name": "Hero",
+    "category": "Advance Layout"
+    }  
+]
+}
+{% endschema %}
+
+
+
+JSON Object
+
+{
+    "sections": {
+      "hero-section": {
+        "type": "hero-about-us",
+        "settings": {
+          "blocks": {
+            "image": {
+              "type": "image"
+            },
+            "image-with-caption": {
+              "type": "image-with-caption"
+            }
+          },
+          "block_order": [
+            "image",
+            "image-with-caption"
+          ]
+        }
+      }
+    },
+    "order": [
+      "hero-section"
+    ]
+  }
+
