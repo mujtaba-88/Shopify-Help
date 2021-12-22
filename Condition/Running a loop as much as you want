@@ -1,0 +1,8 @@
+{% for i in (1..5) %}
+            {% for block in section.blocks %}
+            <span class="badge badge-pill badge-black">{{ block.settings.title }}</span>
+            {% endfor %}
+          {% endfor %}
+          
+          
+Syntax: {% for num in (1..n) %}
