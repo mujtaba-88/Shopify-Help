@@ -1,0 +1,68 @@
+<section class="image-half-caption">
+    <div class="container-xl px-0">
+        <div class="row no-gutters">
+            {% for block in section.blocks %}
+            {% case block.type %}
+            {% when 'image' %}
+            <div class="col-lg-6">
+                {% if block.settings.image != blank %}
+                <div class="image-ratio image-ratio--square image-half-caption__showcase">
+                    {{ block.settings.image | img_url: 'master' | img_tag }}
+                </div>
+                {% endif %}
+            </div>
+            {% when 'image-with-caption' %}
+            <div class="col-lg-6">
+                <div class="image-half-caption__content">
+                    {% if block.settings.image != blank %}
+                    <div class="image-ratio image-ratio--square flex-fill">
+                        {{ block.settings.image | img_url: 'master' | img_tag }}
+                    </div>
+                    {% endif %}
+                    {% if block.settings.heading != blank %}
+                    <div class="content-box flex-fill bg-purple">
+                        <h1 class="font-telegraf-h1">{{ block.settings.heading }}</h1>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endcase %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Hero",
+    "max_blocks": 2,
+    "settings": [],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+          {
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "image-with-caption",
+      "name": "Image with caption",
+      "settings": [
+          {
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image"
+        },
+        {
+            "id": "heading",
+            "type": "text",
+            "label": "Image Caption"
+        }
+      ]
+    }
