@@ -1,0 +1,40 @@
+        {% if product.description != blank %}
+          
+            {%if product.description contains "</h2>" %}
+            
+     {% assign items = product.description | split: "<h2>" %}
+             <div class="product__description rte">
+               {% for item in items %}
+               {% if forloop.first == true %}
+               {{ item | replace: '<div', '<div class="product__description rte"' }}
+  {% else %}
+               <div id="accordion">
+                <div class="card">
+                 {% if item contains "</h2>" %}
+                   <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ forloop.index}}" aria-expanded="true" aria-controls="collapse{{ forloop.index}}">
+                        {{ item | split: "</h2>" | first  }}
+                      </button>
+                    </h5>
+                  </div>
+              
+
+                   {% endif }
+                             
+                   {% if item contains "</p>" %}
+                    <div id="collapse{{ forloop.index}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+                        {{ item | split: "</h2>"   | last }}
+                        </div>
+                    </div>
+                    {% endif %}
+               {% endfor %}
+              </div>
+            </div>
+               {% else %}
+                <div class="product__description rte">
+              {{ product.description | replace: '<div', '<div class="product__description rte"' }}
+              </div>  
+             {% endif %}
+            {% endif %}
