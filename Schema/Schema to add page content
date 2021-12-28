@@ -5,3 +5,8 @@
         }
         
         {{ section.settings.page-content }}
+        
+        
+        Automatically getting page content using page handle
+        {% capture page %}{{ page.handle }}{% endcapture %}
+                            {{ pages[page].content }}
