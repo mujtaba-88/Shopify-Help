@@ -1,0 +1,2 @@
+Show product image and alt using schema
+{{ product.metafields.why_it_works.image | img_tag: product.metafields.why_it_works.image_alt }}
