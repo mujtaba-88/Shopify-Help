@@ -1,0 +1,99 @@
+<!-- Static Code Need to be dynamic -->
+<!-- Cart Drawer Starts Here -->
+{{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+<div class="cart-sidebar__overlay"></div>
+<div class="cart-sidebar">
+    <div class="cart-sidebar__header flex-v-center justify-content-between">
+        <h3>CART</h3>
+        <a href="#" class="cart-sidebar__toggler text-pink mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22.094" height="22.092" viewBox="0 0 22.094 22.092">
+                <g id="Group_1056" data-name="Group 1056" transform="translate(11235.89 -245.376)">
+                    <path id="Path_20" data-name="Path 20" d="M-11235.537,245.729l21.387,21.385"
+                        transform="translate(0.001 0)" fill="none" stroke="currentColor" stroke-width="1" />
+                    <path id="Path_21" data-name="Path 21" d="M-11214.15,245.729l-21.387,21.385"
+                        transform="translate(0.001 0)" fill="none" stroke="currentColor" stroke-width="1" />
+                </g>
+            </svg>
+        </a>
+    </div>
+    {% assign marquee_text = settings.sideCart_marquee | strip_html %}
+    {% if marquee_text != blank %}
+    <div class="ticker-text-container bg-warning">
+        <div class="text-container">
+            <p class="ticker-text">
+            
+            {% for i in (0..4) %}
+                <span>
+                    {{ marquee_text }}
+                </span>
+            {% endfor %}
+            </p>
+        </div> 
+    </div>
+    {% endif %}
+    <div class="cart-sidebar__body">
+        {% if settings.sideCart_note != blank %}
+        <div class="special-offer text-center">
+            {{ settings.sideCart_note }}
+        </div>
+        {% endif %}
+        {%- comment -%}
+        'side-cart-items' loading through script file side-cart.js
+        {%- endcomment -%}
+        <div class="cart-items-wrapper">
+
+            
+        </div>
+        {%- comment -%}
+        cart items script ends here
+        {%- endcomment -%}
+        {% if settings.sideCart_collection != blank %}
+        <div class="cart-carousel upsell-slider">
+            <div class="title-block">
+                <h5>{{ settings.sideCart_upsell_title }}</h5>
+            </div>
+            <div class="cart-carousel__inner carouselInit">
+                {% for upsell_product in collections[settings.sideCart_collection].products %}
+                {% assign variant_id = upsell_product.selected_or_first_available_variant.id %}
+                {% assign isUpsellItem = false %}
+                
+                <div class="carousel-cell" data-p_id="{{ upsell_product.id }}">
+                    <div class="cart-carousel__block">
+                        <div class="cart-item__thumbnail">
+                            <div class="image-ratio image-ratio--square">
+                                <img src="{{ upsell_product.featured_image | img_url: 'master' }}" alt="{{ upsell_product.featured_image.alt }}">
+                            </div>
+                        </div>
+                        <div class="cart-carousel__meta">
+                            <h6>{{ upsell_product.title }}</h6>
+                            <div class="btn-wrapper">
+                                {% assign form_id = "product-form-" | append: upsell_product.id %}
+                                {%- form 'product', upsell_product, id: form_id, class: 'upsell-product-card-form' -%}
+                                <input type="hidden" name="id" value="{{ variant_id}}">
+                                <div class="btn btn-outline-primary" onclick=" addProductToCart('{{ form_id }}' )">Add</div>
+                                {% endform %}
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                {% endfor %}  
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="cart-total py-4">
+            <div class="flex-v-center justify-content-between">
+                <h6>Subtotal</h6>
+                <h6 class="price js-ajax-cart-total">{{ cart.total_price | money }}</h6>
+            </div>
+            <div class="text-wrapper mt-4">
+                <p>Discount codes, taxes, and shipping calculated at checkout.</p>
+            </div>
+        </div>
+    </div>
+    <div class="cart-sidebar__footer text-center bg-secondary">
+        <p class="text-uppercase mb-4">Pay in 4 interest-free installments</p>
+        <a href="/checkout" class="btn btn-primary text-uppercase btn-block js-ajax-checkout-button">Checkout</a>
+    </div>
+</div>
+<!-- Cart Drawer Ends Here -->
