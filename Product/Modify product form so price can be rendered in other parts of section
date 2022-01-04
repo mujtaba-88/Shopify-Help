@@ -1,0 +1,69 @@
+   Code available in global.js
+   
+   
+   toggleAddButton(disable = true, text, modifyClass = true) {
+    const productForm = document.getElementById(`product-form-${this.dataset.section}`);
+    if (!productForm) return;
+    const addButton = productForm.querySelector('[name="add"]');
+    const addButtonText = productForm.querySelector('[name="add"] > span');
+    if (!addButton) return;
+    if (disable) {
+      addButton.setAttribute('disabled', 'disabled');
+      if (text) addButtonText.textContent = text;
+    } else {
+      addButton.removeAttribute('disabled');
+      addButtonText.textContent = window.variantStrings.addToCart;
+    }
+    if (!modifyClass) return;
+  }
+
+      
+   Replaced Code
+   
+   
+   toggleAddButton(disable = true, text, modifyClass = true) {	
+    let productForm = document.getElementById(`product-form-${this.dataset.section}`);	
+    let url = location.href;	
+    if (url.indexOf('/products') == -1) {	
+      productForm = document.getElementById(`${this.dataset.parent}`);	
+      if (!productForm) return;	
+      const addButton = productForm.querySelector('[name="add"]');	
+      const addButtonText = productForm.querySelector('[name="add"] > span.btn-label');	
+      const price_item_sale = productForm.querySelector('[name="add"] .price-item--sale');	
+      const price_item_regular = productForm.querySelector('[name="add"] .price-item--regular');	
+      let compare_price = Shopify.formatMoney(this.currentVariant.compare_at_price);	
+      let regular_price = Shopify.formatMoney(this.currentVariant.price);	
+      if (!addButton) return;	
+      if (disable) {	
+        addButton.setAttribute('disabled', 'disabled');	
+        addButton.classList.add('disabled');	
+        if (text) addButtonText.textContent = text;	
+      } else {	
+        addButton.removeAttribute('disabled');	
+        addButton.classList.remove('disabled');	
+        addButtonText.textContent = "Shop -";	
+      }	
+      price_item_sale.textContent = regular_price;	
+      price_item_regular.textContent = compare_price;	
+      if (!modifyClass) return;	
+    } else {	
+      if (!productForm) return;	
+      const addButton = productForm.querySelector('[name="add"]');	
+      const addButtonText = productForm.querySelector('[name="add"] > span');	
+      const price_item_regular = productForm.querySelector('[name="add"] .price-item--regular');	
+      const price_item_sale = productForm.querySelector('[name="add"] .price-item--sale');	
+      let compare_price = Shopify.formatMoney(this.currentVariant.compare_at_price);	
+      let regular_price = Shopify.formatMoney(this.currentVariant.price);	
+      if (!addButton) return;	
+      if (disable) {	
+        addButton.setAttribute('disabled', 'disabled');	
+        if (text) addButtonText.textContent = text;	
+      } else {	
+        addButton.removeAttribute('disabled');	
+        addButtonText.textContent = window.variantStrings.addToCart;	
+      }	
+      price_item_sale.textContent = regular_price;	
+      price_item_regular.textContent = compare_price;	
+      if (!modifyClass) return;	
+    }	
+  }
