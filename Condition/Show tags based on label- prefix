@@ -1,0 +1,11 @@
+        {% assign the-relevant-tags = ' ' %}
+                    {% if tag_product != blank %}
+                 {% for tag in tag_product %}
+                    {% if tag contains 'label-'  %} 
+                    {% capture the-relevant-tags %}
+                        {{ tag }}
+                    {% endcapture %}
+                    <span class="badge__inner" id="badge_tag">{{ the-relevant-tags | remove: 'label-' }} </span> 
+                    {% endif %}
+                 {% endfor %}
+                 {% endif %}
