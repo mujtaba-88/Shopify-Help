@@ -1,0 +1,99 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<div class="container ">
+  
+    <div class="panel-group" id="faqAccordion">
+      {% for block in section.blocks %}
+        <div class="panel panel-default ">
+            <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question{{ forloop.index | escape }}">
+                 <h4 class="panel-title">
+                    {{block.settings.title}}
+              </h4>
+
+            </div>
+            <div id="question{{ forloop.index | escape }}" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                     
+			{{block.settings.description}}
+                </div>
+            </div>
+        </div>
+  {% endfor %}        
+    </div>
+
+</div>
+
+{% style %}
+
+.panel-heading:after {
+  content: "\2b"; 
+  font-family: 'FontAwesome';
+  position: absolute;
+  right: 55px;
+    font-size: 20px;
+    -webkit-text-stroke: 2px #000;
+}
+
+.panel-heading[aria-expanded="true"]:after {
+  content: "\f068"; 
+ font-size: 20px;
+    -webkit-text-stroke: 2px #000;
+}
+
+h4.panel-title {
+    display: contents;
+}
+.panel-default>.panel-heading {
+    background-color: #fff;
+}
+.panel-default {
+    border-color: #fff;
+}
+{% endstyle %}
+
+
+
+
+{% schema %}
+  {
+    "name": "Custom Faq",
+    "class": "index-section",
+    "settings": [
+      
+      
+    ],
+ "blocks": [
+    {
+      "type": "Text",
+      "name": "FAQ's",
+      "settings": [
+          {
+        "type": "text",
+        "id": "title",
+        "label": "Question",
+		"default": "Question"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Answer",
+		"default": "<p>Answer</p>"
+      }
+      ]
+    }
+],
+    "presets": [
+      {
+        "name": "Custom Faq"
+      }
+    ]
+  }
+{% endschema %}
+
+{% comment %}
+
+{% endcomment %}
