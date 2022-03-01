@@ -1,0 +1,280 @@
+<div class="c_af_container">
+  <div class="c_af-heading">
+    {% if section.settings.c_s_heading %}
+    <h3>{{ section.settings.c_s_heading }}</h3>
+    {% endif %}
+    {% if section.settings.c_heading %}
+    <h2>{{ section.settings.c_heading }}</h2>
+    {% endif %}
+  </div>
+  <div class="c_af">
+    {% for block in section.blocks %}
+    <div class="c_af-a">
+      <div class="c_af-a-a">
+        <div class="c_af-img">
+          {% if block.settings.c_img != blank %}
+          <img src="{{ block.settings.c_img | img_url : "master" }}" alt="">
+          {% endif %}
+
+        </div>
+
+        <div class="c_af-text">
+          <p>"{{ block.settings.c_text }}"</p>
+          <div class="c_af-img">
+            {% if block.settings.c_star-img != blank %}
+            <img src="{{ block.settings.c_star-img | img_url : "master" }}" class="c_af-star-img" alt="">
+            {% endif %}
+          </div>
+
+          <div class="c_fc-name">
+            <h2>{{ block.settings.c_name }}</h2>
+            <p>{{ block.settings.c_nn }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% comment %}
+  <div class="c_af-btn">
+    <a href="{{ section.settings.c_btn-url }}">{{ section.settings.c_btn }}</a>
+  </div>
+  {% endcomment %}
+</div>
+<style>
+  .c_af_container{
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 30px 10px;
+  }
+  .c_af-heading{
+    text-align: center;
+    padding-bottom: 30px;
+  }
+  .c_af-heading h3{
+    font-size: 23px;
+    margin: 0px;
+    font-weight: 500;
+  }
+  .c_af-heading h2{
+    font-size: 26px;
+    margin-top: 20px;
+    font-weight: 800;
+    text-transform: initial;
+  }
+  .c_af{
+
+  }
+  .c_af-a{
+    padding: 0px 10px;
+  }
+  .c_af-a-a{
+    /*     border: 1px solid #e9d9ff;
+    padding: 10px 10px; */
+  }
+  .c_af-img{
+
+  }
+  .c_af-img img{
+    width: 100%;
+    display: block;
+    margin: 0px auto;
+  }
+  .c_af-star-img{
+    width: 120px !important;
+    padding-top: 15px;
+    margin: 0px !important;
+  }
+  .c_af-text{
+    text-align: left;
+    padding: 30px 0px 10px 0px;
+  }
+  .c_af-text p{
+    margin: 0px;
+    font-size: 18px;
+  }
+  .c_fc-name{
+    padding: 25px 0px 10px 0px;
+  }
+  .c_fc-name h2{
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0px;
+  }
+  .c_fc-name p{
+    font-size: 14px;
+    margin: 0px;
+    margin-top: 5px;
+  }
+  .c_af-btn{
+    text-align: center;
+    padding: 20px 0px;
+  }
+  .c_af-btn a{
+    font-size: 18px;
+    margin: 0px;
+    display: inline-block;
+    background: #333;
+    color: white;
+    font-weight: 700;
+    padding: 10px 50px;
+    border-radius: 50px;
+  }
+  .c_af-img {
+    display: block;
+    max-height: 375px;
+    overflow: hidden;
+}
+
+  @media (max-width: 768px){
+    .c_af .slick-list.draggable {
+      padding: 0px 17vw 0px 0px;
+    } 
+    
+    .slick-active {
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+       .slick-slide {
+         display: none;
+		opacity:0;
+		transition:opacity 1s ease-out;
+	}
+  
+.slick-active {
+  display: block;
+		opacity:1!important;
+		transition:opacity 1s ease-in;
+	} 
+
+  }
+  
+    
+/*   .slick-slide {
+		opacity:0;
+		transition:opacity 1s ease-out;
+	}
+  
+.slick-active {
+		opacity:1!important;
+		transition:opacity 1s ease-in;
+	} */
+  
+  @media only screen and (min-width: 991px){
+  .slick-active {
+ 
+    filter: blur(2px);
+}
+
+.slick-active + .slick-active {
+  
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  filter: blur(0);
+  transition: filter 0.8s ease-in-out;
+}
+
+.slick-active + .slick-active + .slick-active {
+  
+   filter: blur(2px);
+}
+  
+  } 
+
+</style>
+
+<script>
+  $('.c_af').slick({
+    dots: false,
+    arrows: false,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+  autoplaySpeed: 7000,
+    responsive: [
+      {
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
+</script>
+
+
+{% schema %}
+{
+"name": "Testimonial Slider",
+"settings": [
+{
+"type" : "text",
+"id" : "c_s_heading",
+"label" : "Sub Heading",
+"default" : "Sub Heading"
+},
+{
+"type" : "text",
+"id" : "c_heading",
+"label" : "Heading",
+"default" : "Heading"
+}
+],
+"blocks" : [
+{
+"type" : "block-1",
+"name" : "Slider",
+"settings" : [
+{
+"type" : "image_picker",
+"id" : "c_img",
+"label" : "Image"
+},
+{
+"type" : "image_picker",
+"id" : "c_star-img",
+"label" : "Star Image"
+},
+{
+"type" : "textarea",
+"id" : "c_text",
+"label" : "Textarea",
+"default" : "I absolutely loved this product even after a couple of weeks I have noticed an overall difference in the quality of my hair and it was visually clear how much smoother my hair was after only one use. I usually have very dry and frizzy hair which is made worse by using heating tools on my hair, however I have needed to use my straightener less and less due to this product. I am very thankful to have found it and it is now a staple part of my hair care routine."
+},
+{
+"type" : "text",
+"id" : "c_name",
+"label" : "Name",
+"default" : "@Ashleigh"
+},
+{
+"type" : "text",
+"id" : "c_nn",
+"label" : "Name Bottom Text",
+"default" : "Verified buyer of Skin + Digestion Formula - 60 Tablets"
+}
+]
+}
+],
+"presets" : [
+{
+"name" : "C After Before",
+"category" : "custom"
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
