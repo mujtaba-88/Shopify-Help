@@ -1,0 +1,30 @@
+<form action="/cart/add" method="post" style="text-align:center;">
+
+  <select name="id" id="{{ product.handle }}" style="display: none;">
+  {% for variant in product.variants %}
+    {% if variant.available %}
+    <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>     
+    {% else %}
+    <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+    {% endif %}
+  {% endfor %}
+    </select>          
+
+  <input type="submit" value="Add to cart" class="btn" />
+
+</form>
+
+
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+<script>
+    var all_products = { {% for product in collection.products %}'{{ product.handle }}': {{ product | json }},{% endfor %} };
+    for(curr_product in all_products){
+      new Shopify.OptionSelectors(curr_product, {
+        product: all_products[curr_product]
+      });
+    }
+</script>
+
+
+Based on StackOverflow answer
+https://stackoverflow.com/questions/58496976/displaying-variants-options-in-collection-page-shopify
