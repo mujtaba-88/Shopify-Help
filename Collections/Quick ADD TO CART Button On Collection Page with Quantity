@@ -1,0 +1,23 @@
+<form method="post" action="/cart/add">
+
+  <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+
+  <input min="1" type="number" id="quantity" name="quantity" value="1"/>
+
+  <input type="submit" value="Add to cart" class="btn" />
+
+</form>
+
+
+IF PRODUCT HAVE SWATCHES
+
+  <input type="hidden" name="id" />
+
+  <input min="1" type="number" id="quantity" name="quantity" value="1"/>
+
+  <input type="submit" value="Add to cart" class="btn" />
+
+</form>
+
+
+Based on https://ecomexperts.io/blogs/liquid-tutorial-shopify/shopify-add-to-cart-button-collection-page
