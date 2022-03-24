@@ -1,0 +1,65 @@
+         <form method="post" action="/cart/add" class="c-cart-quantity">
+            <div class="product_input">
+
+            <div class="qtydiv">
+
+  <div class="qtybox">
+    <span class="btnqty qtyminus icon icon-minus" style="
+    font-size: 28px;">-</span>
+    <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector quantity-input" readonly="">
+    <span class="btnqty qtyplus icon icon-plus">+</span>
+  </div>
+</div>
+              <div class="cart">
+               <input name="id" value="{{ product.variants.first.id }}" type="hidden" />
+  <input name="add" value="Add to cart" type="submit" class="btn"/>
+            </div>  
+          </div>
+          </form>
+          
+          
+          <script>
+$('.qtybox .btnqty').on('click', function(){
+  var qty = parseInt($(this).parent('.qtybox').find('.quantity-input').val());
+  if($(this).hasClass('qtyplus')) {
+    qty++;
+  }else {
+    if(qty > 1) {
+      qty--;
+    }
+  }
+  qty = (isNaN(qty))?1:qty;
+  $(this).parent('.qtybox').find('.quantity-input').val(qty);
+})
+</script>
+<style>
+  
+.qtydiv label{display: block;margin-bottom: 12px;letter-spacing: 2.8px;color: #747a7b;}
+.qtybox{border: 1px solid #ccc;margin-bottom: 8px;}
+.qtydiv .btnqty{display: inline-block;cursor: pointer;user-select: none;font-size: 18px;padding: 5px;line-height: 5px;}
+.qtydiv .btnqty.qtyminus{margin-right: 8px;}
+.qtydiv .btnqty.qtyplus{margin-left: 8px;}
+.qtydiv .quantity-input{border: none;border: none;padding: 8px;text-align: center;width: 35px;outline: none;display: inline-block;}
+.qtydiv {display: inline-block;}
+  .qtydiv .btnqty.qtyplus {
+    margin-left: 8px;
+    padding-block: 8px;
+}
+  input.btn {
+    margin-left: 9px;
+}
+  
+  span.btnqty.qtyminus.icon.icon-minus {
+    padding-block: 6px;
+}
+  .product_input {
+    display: flex!important;
+}
+  @media only screen and (max-width: 768px) {
+  .product_input {
+    display: block!important;
+}
+    }
+    
+    </style>
+    
