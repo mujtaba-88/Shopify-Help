@@ -1,0 +1,267 @@
+"https://codepen.io/alexandrebuffet/pen/zNpmpx"
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<link href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+{%- if section.settings.slider -%}
+<section>
+  {% if section.blocks.size > 0 %}
+  <div class="slider stick-dots">
+     {% for block in section.blocks %}
+    <div class="slide">
+      <div class="slide__img">
+        <img src="" alt="" data-lazy="{{ block.settings.slider-img | img_url : "master" }}" class="full-image animated" data-animation-in="zoomInImage"/>
+      </div>
+      <div class="slide__content">
+        <div class="slide__content--headings">
+              {% if block.settings.heading %}
+           <h2 class="animated title" style="color: #fff;" data-animation-in="fadeInRight">{{ block.settings.heading }}</h2>
+              {% endif %} 
+          {% if block.settings.description %}
+          <p class="animated" data-animation-in="fadeInRight" data-delay-in="0.3">{{ block.settings.description }}</p>
+              {% endif %}
+        </div>
+      </div>
+    </div>
+     {% endfor %}
+  </div>
+    {% endif %}
+
+</section>
+
+  {%- endif -%}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+<script src="https://alexandrebuffet.fr/codepen/slider/slick-animation.min.js"></script>
+
+{% style %}
+
+h2, p {color: #fff;}
+
+html {
+	 font-size: 62.5%;
+}
+ body {
+	 font-size: 1.6rem;
+	 font-family: 'Montserrat', sans-serif;
+}
+ @media (min-width: 992px) {
+	 .slider, .slide {
+		 height: 80vh;
+	}
+}
+ .slide {
+	 position: relative;
+}
+ .slide .slide__img {
+	 width: 100%;
+	 height: auto;
+	 overflow: hidden;
+}
+ @media (min-width: 992px) {
+	 .slide .slide__img {
+		 position: absolute;
+		 top: 50%;
+		 left: 0;
+		 transform: translateY(-50%);
+	}
+}
+ .slide .slide__img img {
+	 max-width: 100%;
+	 height: auto;
+	 opacity: 1 !important;
+	 animation-duration: 3s;
+	 transition: all 1s ease;
+}
+ .slide .slide__content {
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 transform: translate(-50%,-50%);
+}
+ .slide .slide__content--headings {
+	 text-align: center;
+	 color: #FFF;
+}
+ .slide .slide__content--headings h2 {
+	text-transform: uppercase;
+	 font-size: 5.5rem;
+	 margin: 10px 0;
+}
+ .slide .slide__content--headings .animated {
+	 transition: all .5s ease;
+}
+ .slider [data-animation-in] {
+	 opacity: 0;
+	 animation-duration: 1.5s;
+	 transition: opacity 0.5s ease 0.3s;
+}
+ .slick-dotted .slick-slider {
+	 margin-bottom: 30px;
+}
+ .slick-dots {
+	 position: absolute;
+	 bottom: 25px;
+	 list-style: none;
+	 display: block;
+	 text-align: center;
+	 padding: 0;
+	 margin: 0;
+	 width: 100%;
+}
+ .slick-dots li {
+	 position: relative;
+	 display: inline-block;
+	 margin: 0 5px;
+	 padding: 0;
+	 cursor: pointer;
+}
+ .slick-dots li button {
+	 border: 0;
+	 display: block;
+	 outline: none;
+	 line-height: 0px;
+	 font-size: 0px;
+	 color: transparent;
+	 padding: 5px;
+	 cursor: pointer;
+	 transition: all .3s ease;
+}
+ .slick-dots li button:hover, .slick-dots li button:focus {
+	 outline: none;
+}
+ .simple-dots .slick-dots li {
+	 width: 20px;
+	 height: 20px;
+}
+ .simple-dots .slick-dots li button {
+	 border-radius: 50%;
+	 background-color: white;
+	 opacity: 0.25;
+	 width: 20px;
+	 height: 20px;
+}
+ .simple-dots .slick-dots li button:hover, .simple-dots .slick-dots li button:focus {
+	 opacity: 1;
+}
+ .simple-dots .slick-dots li.slick-active button {
+	 color: white;
+	 opacity: 0.75;
+}
+ .stick-dots .slick-dots li {
+	 height: 3px;
+	 width: 50px;
+}
+ .stick-dots .slick-dots li button {
+	 position: relative;
+	 background-color: white;
+	 opacity: 0.25;
+	 width: 50px;
+	 height: 3px;
+	 padding: 0;
+}
+ .stick-dots .slick-dots li button:hover, .stick-dots .slick-dots li button:focus {
+	 opacity: 1;
+}
+ .stick-dots .slick-dots li.slick-active button {
+	 color: white;
+	 opacity: 0.75;
+}
+ .stick-dots .slick-dots li.slick-active button:hover, .stick-dots .slick-dots li.slick-active button:focus {
+	 opacity: 1;
+}
+ @keyframes zoomInImage {
+	 from {
+		 transform: scale3d(1.1,1.1,1.1);
+	}
+	 to {
+		 transform: scale3d(1,1,1);
+	}
+}
+ .zoomInImage {
+	 animation-name: zoomInImage;
+}
+ @keyframes zoomOutImage {
+	 from {
+		 transform: scale3d(1.1,1.1,1.1);
+	}
+	 to {
+		 transform: scale3d(1,1,1);
+	}
+}
+ .zoomOutImage {
+	 animation-name: zoomOutImage;
+}
+ 
+{% endstyle %}
+
+<script>
+/*
+** With Slick Slider Plugin : https://github.com/marvinhuebner/slick-animation
+** And Slick Animation Plugin : https://github.com/marvinhuebner/slick-animation
+*/
+
+// Init slick slider + animation
+$('.slider').slick({
+  autoplay: true,
+  speed: 200,
+  lazyLoad: 'progressive',
+  arrows: false,
+  dots: true,
+}).slickAnimation();
+
+
+</script>
+{% schema %}
+{
+"name": "Main Slider",
+"settings": [
+  {
+          "id": "slider",
+          "type": "checkbox",
+          "label": "Enable Section",
+          "default": false
+
+      }
+],
+"blocks" : [
+{
+"type" : "block-1",
+"name" : "Slider",
+"settings" : [
+{
+"type" : "image_picker",
+"id" : "slider-img",
+"label" : "Slider Image"
+},
+{
+"type" : "richtext",
+"id" : "description",
+"label" : "Paragraph",
+"default" : "<p>Description Text</p>"
+},
+{
+"type" : "text",
+"id" : "heading",
+"label" : "Heading",
+"default" : "Heading"
+}
+]
+}
+],
+"presets" : [
+{
+"name" : "Main Slider",
+"category" : "custom"
+}
+]
+}
+{% endschema %}
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
