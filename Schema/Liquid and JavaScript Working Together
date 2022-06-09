@@ -1,0 +1,7 @@
+user single quote to write liquid syntax in script tag like
+
+<script>
+
+var mytext = '{{disp_custom_price}}';
+
+</script>
