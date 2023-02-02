@@ -1,0 +1,5 @@
+  {% if customer.tags contains "Buchanan" or customer.tags contains "Willbert" or customer.tags contains "Stardust"  %} 
+      {% if product.tags contains "General" %}
+      {% continue %}      
+      {% endif %}
+  {% endif %}
