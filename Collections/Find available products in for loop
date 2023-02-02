@@ -1,0 +1,5 @@
+{% if product.available %}
+     {% capture variable2 %}
+      {% assign available_products = available_products | plus: 1 %}
+     {% endcapture %}
+  {% endif %}
